@@ -6,7 +6,7 @@ Hi there and Welcome to the Memory Game! This is a simple command-line-based mem
 ## Setup
 1. **Clone the Repository:**
 ```bash
-git clone <repository_url>
+git clone <https://github.com/Saidulla14/MemoryGame.git>
 cd MemoryGame
 ```
 2. **Compile the Code:**
