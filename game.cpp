@@ -4,6 +4,11 @@
 #include <limits>  
 using namespace std;
 
+const string RED = "\033[1;31m";
+const string YELLOW = "\033[1;33m";
+const string BLUE = "\033[1;34m";  
+const string MAGENTA = "\033[1;35m";
+const string RESET_COLOR = "\033[0m";
 
 
 void clearScreen() {
@@ -13,16 +18,16 @@ void clearScreen() {
 void displayBoard(const vector<int>& board, const vector<bool>& revealed) {
     for (size_t i = 0; i < board.size(); ++i) {
         if (revealed[i]) {
-            cout << board[i] << " ";
+            cout << BLUE << board[i] << " " << RESET_COLOR;
         } else {
-            cout << "? ";
+            cout << YELLOW << "? " << RESET_COLOR;
         }
     }
     cout << endl;
 } 
 
 void pressEnterToContinue() {
-    cout << "Press Enter to continue...";
+    cout << "Press Enter"<< BLUE << " to continue"<< RESET_COLOR << "... ";
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
     cin.get();
     system("cls");
@@ -30,8 +35,8 @@ void pressEnterToContinue() {
 
 int main() {
     int size;
-    cout << "Welcome to the Memory Game!" << endl;
-    cout << "Enter the size of an array (6-20): ";
+    cout << "Welcome " << BLUE << "to" << RESET_COLOR << " the Memory Game!" << endl;
+    cout << "Enter the size " << BLUE << "of" << RESET_COLOR << " an array ("<< MAGENTA << "6" << RESET_COLOR <<"-"<< MAGENTA << "20" << RESET_COLOR <<"): ";
     cin >> size;
 
     if (size < 6 || size > 20) {
@@ -57,7 +62,7 @@ int main() {
         displayBoard(board, revealed);
 
         int index1, index2;
-        cout << "Enter the index to show: ";
+        cout << "Enter the index "<< BLUE << "to " << RESET_COLOR << "show: ";
         cin >> index1;
 
         if (index1 < 1 || index1 > size || revealed[index1 - 1]) {
@@ -70,12 +75,12 @@ int main() {
 
         displayBoard(board, revealed);
 
-        cout << "Enter the second index to show: ";
+        cout << "Enter the second index "<< BLUE << "to" << RESET_COLOR <<" show: ";
         cin >> index2;
 
         if (index2 < 1 || index2 > size || revealed[index2 - 1]) {
             cout << "Invalid index. Try again." << endl;
-            revealed[index1 - 1] = false;  // Undo the reveal of the first card
+            revealed[index1 - 1] = false;  
             pressEnterToContinue();
             continue;
         }
@@ -83,9 +88,9 @@ int main() {
         revealed[index2 - 1] = true;
 
         if (board[index1 - 1] == board[index2 - 1]) {
-            cout << "The cards match!" << endl;
+            cout << "The cards "<< YELLOW << "match!" << RESET_COLOR << endl;
         } else {
-            cout << "The cards do not match. Try again!" << endl;
+            cout << "The cards "<< BLUE << "do " << YELLOW << "not " << RESET_COLOR << "match. Try again!" << endl;
             pressEnterToContinue();
             revealed[index1 - 1] = false;
             revealed[index2 - 1] = false;
@@ -95,7 +100,7 @@ int main() {
         moves++;
     }
 
-    cout << "Game over! All pairs matched in " << moves << " moves." << endl;
+    cout << YELLOW << "Game over!"<< RESET_COLOR << " All pairs matched in " << YELLOW << moves << RESET_COLOR <<" moves." << endl;
 
     return 0;
 }
